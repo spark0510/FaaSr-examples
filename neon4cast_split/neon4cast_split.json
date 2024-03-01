@@ -373,9 +373,9 @@
       }
     },
     "FunctionGitRepo": {
-        "forecast_model_prepare_sites": "FaaSr-examples/neon4cast_split/forecast_model_prepare_sites.R",
-        "forecast_model_one_site": "FaaSr-examples/neon4cast_split/forecast_model_one_site.R",
-        "forecast_model_aggregate_sites_and_submit": "FaaSr-examples/neon4cast_split/forecast_model_aggregate_sites_and_submit.R"
+        "forecast_model_prepare_sites": "FaaSr/FaaSr-examples/neon4cast_split/forecast_model_prepare_sites.R",
+        "forecast_model_one_site": "FaaSr/FaaSr-examples/neon4cast_split/forecast_model_one_site.R",
+        "forecast_model_aggregate_sites_and_submit": "FaaSr/FaaSr-examples/neon4cast_split/forecast_model_aggregate_sites_and_submit.R"
     },
     "FunctionCRANPackage": {
         "forecast_model_one_site": [

@@ -13,10 +13,10 @@ idigbio_media_download <- function(folder, genus) {
 
   # Iterate over 10 records
   for (x in 1:10) {
-    # Download image from provider's accessURI
-    download.file(df$`data.ac:accessURI`[x],destfile=fn)
     # This is the name we'll save the image as
     fn = paste(df$`uuid`[x],".jpg",sep="")
+    # Download image from provider's accessURI
+    download.file(df$`data.ac:accessURI`[x],destfile=fn)
     # Save image into S3
     faasr_put_file(local_file=fn, remote_folder=folder, remote_file=fn)
   }

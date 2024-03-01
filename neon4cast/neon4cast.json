@@ -26,7 +26,7 @@
         }
     },
     "FunctionGitRepo": {
-        "forecast_model_all_sites": "FaaSr-examples/neon4cast/forecast_model_all_sites.R"
+        "forecast_model_all_sites": "FaaSr/FaaSr-examples/neon4cast/forecast_model_all_sites.R"
     },
     "FunctionCRANPackage": {
         "forecast_model_all_sites": [
