@@ -3,7 +3,7 @@
 # Notes:
 # Data frame format: Parameter 1, parameter 2, temp/weather deviation, datetime, 
 # variable, prediction, observation
-assemble_surrogate_dataset <- function(start, end, output_folder)
+assemble_surrogate_dataset <- function(start, end, output_folder, calibration_repo)
 {
     # load packages ----
     library(tidyverse)
@@ -11,7 +11,7 @@ assemble_surrogate_dataset <- function(start, end, output_folder)
     library(glmtools)
     library(GLM3r)
 
-    system("git clone https://github.com/kcratie/glm3_calibration.git")
+    system(paste0("git clone ", calibration_repo))
     # set working directory; you can change this to be any calibration folder ----
     setwd("./glm3_calibration") 
 
@@ -39,7 +39,7 @@ assemble_surrogate_dataset <- function(start, end, output_folder)
         return(list(X=X, g=c((l + (n - 1)/2)/n,1)))
     }
 
-    Dlist <- mylhs(n = end, m = 6)
+    Dlist <- mylhs(n = 1000, m = 6)
 
     # data wrangling to get parameter values in correct range
     scale_R_growth <- function(x, na.rm = FALSE) x*3 + 0.5
@@ -68,65 +68,57 @@ assemble_surrogate_dataset <- function(start, end, output_folder)
 
     # for-loop to run GLM using different parameter values
     
-    for(j in 1:length(unlist(param_values[,1]))){
+    for(j in start:end){
+        # read in nml
+        nml <- glmtools::read_nml(nml_file = nml_file)
         
-    # read in nml
-    nml <- glmtools::read_nml(nml_file = nml_file)
-    
-    # get current parameter values
-    curr_R_growth <- nml$phyto_data[[param_names[1]]]
-    curr_w_p <- nml$phyto_data[[param_names[2]]]
-    
-    # replace parameter value as desired
-    curr_R_growth <- unname(unlist(param_values[j,c(1:3)]))
-    curr_w_p <- unname(unlist(param_values[j,c(4:6)]))
-    
-    # set nml parameter values
-    new_nml <- glmtools::set_nml(nml, arg_name = param_names[1], arg_val = curr_R_growth)
-    new_nml1 <- glmtools::set_nml(new_nml, arg_name = param_names[2], arg_val = curr_w_p)
-    
-    # create path to write permuted nml to file
-    write_path <- nml_file
-    
-    # write permuted nml to file
-    glmtools::write_nml(new_nml1, file = write_path)
-    
-    # run GLM-AED using GLM3r
-    GLM3r::run_glm()
+        # get current parameter values
+        curr_R_growth <- nml$phyto_data[[param_names[1]]]
+        curr_w_p <- nml$phyto_data[[param_names[2]]]
+        
+        # replace parameter value as desired
+        curr_R_growth <- unname(unlist(param_values[j,c(1:3)]))
+        curr_w_p <- unname(unlist(param_values[j,c(4:6)]))
+        
+        # set nml parameter values
+        new_nml <- glmtools::set_nml(nml, arg_name = param_names[1], arg_val = curr_R_growth)
+        new_nml1 <- glmtools::set_nml(new_nml, arg_name = param_names[2], arg_val = curr_w_p)
+        
+        # create path to write permuted nml to file
+        write_path <- nml_file
+        
+        # write permuted nml to file
+        glmtools::write_nml(new_nml1, file = write_path)
+        
+        # run GLM-AED using GLM3r
+        GLM3r::run_glm()
 
-    # pull variable of interest from model output
-    var <- glmtools::get_var(nc_file, var_name = "PHY_tchla", reference="surface", z_out=1.6)
-    
-    # pull parameters from model output
-    R_growth <- new_nml1$phyto_data$`pd%R_growth`
-    w_p <- new_nml1$phyto_data$`pd%w_p`
-    
-    # assemble dataframe for that model run
-    temp <- data.frame(R_growth_cyano = R_growth[1],
-                        R_growth_green = R_growth[2],
-                        R_growth_diatom = R_growth[3],
-                        w_p_cyano = w_p[1],
-                        w_p_green = w_p[2],
-                        w_p_diatom = w_p[3],
-                        deviation = 0,
-                        datetime = var$DateTime,
-                        variable = "PHY_tchla_1.6",
-                        prediction = var$PHY_tchla_1.6)
+        # pull variable of interest from model output
+        var <- glmtools::get_var(nc_file, var_name = "PHY_tchla", reference="surface", z_out=1.6)
+        
+        # pull parameters from model output
+        R_growth <- new_nml1$phyto_data$`pd%R_growth`
+        w_p <- new_nml1$phyto_data$`pd%w_p`
+        
+        # assemble dataframe for that model run
+        temp <- data.frame(R_growth_cyano = R_growth[1],
+                            R_growth_green = R_growth[2],
+                            R_growth_diatom = R_growth[3],
+                            w_p_cyano = w_p[1],
+                            w_p_green = w_p[2],
+                            w_p_diatom = w_p[3],
+                            deviation = 0,
+                            datetime = var$DateTime,
+                            variable = "PHY_tchla_1.6",
+                            prediction = var$PHY_tchla_1.6)
 
-    # make sure you reset nml
-    glmtools::write_nml(start_nml, file = nml_file)
-      
-    # write model run and corresponding parameters to file
-    filename <- paste0("model_scenario_",j,".csv")
-    model_run_file <- paste0("./output/",filename)
-    write.csv(temp, file = model_run_file,row.names = FALSE)
-    faasr_put_file(local_file=model_run_file, remote_folder=output_folder, remote_file=model_run_file)
-    
+        # make sure you reset nml
+        glmtools::write_nml(start_nml, file = nml_file)
+        
+        # write model run and corresponding parameters to file
+        filename <- paste0("model_scenario_",j,".csv")
+        model_run_file <- paste0("./output/",filename)
+        write.csv(temp, file = model_run_file,row.names = FALSE)
+        faasr_put_file(local_file=model_run_file, remote_folder=output_folder, remote_file=filename)
     }
-  for (j in start:end) {
-    # This is the name we'll save the image as
-    fn <- paste0("model_scenario_",j,".csv")
-    # Save image into S3
-    faasr_put_file(local_file=fn, remote_folder=folder, remote_file=fn)
-  }
 }

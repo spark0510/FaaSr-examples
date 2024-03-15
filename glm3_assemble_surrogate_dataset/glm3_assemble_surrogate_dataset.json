@@ -22,12 +22,13 @@
             "Arguments": {
                 "start": "10",
                 "stop": "20",
-                "output_folder": "surrogate_dataset"
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
             }
         }
     },
     "ActionContainers": {
-        "start": "ghcr.io/kcratie/faasr-github-actions"
+        "start": "docker.io/kcratie/github-actions-faasr"
     },
     "FunctionGitRepo": {
         "glm3_assemble_surrogate_dataset": "kcratie/FaaSr-examples/glm3_assemble_surrogate_dataset/glm3_assemble_surrogate_dataset.R"
