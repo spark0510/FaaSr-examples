@@ -3,7 +3,7 @@
 # Notes:
 # Data frame format: Parameter 1, parameter 2, temp/weather deviation, datetime, 
 # variable, prediction, observation
-assemble_surrogate_dataset <- function(start, end, output_folder, calibration_repo)
+glm3_assemble_surrogate_dataset <- function(start, end, output_folder, calibration_repo)
 {
     # load packages ----
     library(tidyverse)
