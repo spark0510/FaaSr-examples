@@ -21,7 +21,7 @@
             "FaaSServer": "My_GitHub_Account",
             "Arguments": {
                 "start": "10",
-                "stop": "20",
+                "end": "11",
                 "output_folder": "surrogate_dataset",
                 "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
             }
