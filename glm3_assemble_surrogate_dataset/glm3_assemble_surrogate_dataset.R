@@ -3,6 +3,10 @@
 # Notes:
 # Data frame format: Parameter 1, parameter 2, temp/weather deviation, datetime, 
 # variable, prediction, observation
+# Arguments for FaaSr:
+#   start, end : integers specifying the start and end (inclusive) of model scenario tot run
+#   output_folder : string name of the outputt folder to store CSV outputs inside your S3 bucket
+#   calibration_repo : string URL of git repository with calibration data
 glm3_assemble_surrogate_dataset <- function(start, end, output_folder, calibration_repo)
 {
     # load packages ----

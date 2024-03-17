@@ -20,18 +20,118 @@
             "FunctionName": "glm3_assemble_surrogate_dataset",
             "FaaSServer": "My_GitHub_Account",
             "Arguments": {
-                "start": "10",
-                "end": "11",
+                "start": "1",
+                "end": "100",
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
+            },
+            "InvokeNext": ["batch1", "batch2", "batch3", "batch4", "batch5", "batch6", "batch7", "batch8", "batch9"]
+        },
+        "batch1": {
+            "FunctionName": "glm3_assemble_surrogate_dataset",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "start": "101",
+                "end": "200",
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
+            }
+        },
+        "batch2": {
+            "FunctionName": "glm3_assemble_surrogate_dataset",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "start": "201",
+                "end": "300",
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
+            }
+        },
+        "batch3": {
+            "FunctionName": "glm3_assemble_surrogate_dataset",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "start": "301",
+                "end": "400",
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
+            }
+        },
+        "batch4": {
+            "FunctionName": "glm3_assemble_surrogate_dataset",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "start": "401",
+                "end": "500",
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
+            }
+        },
+        "batch5": {
+            "FunctionName": "glm3_assemble_surrogate_dataset",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "start": "501",
+                "end": "600",
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
+            }
+        },
+        "batch6": {
+            "FunctionName": "glm3_assemble_surrogate_dataset",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "start": "601",
+                "end": "700",
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
+            }
+        },
+        "batch7": {
+            "FunctionName": "glm3_assemble_surrogate_dataset",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "start": "701",
+                "end": "800",
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
+            }
+        },
+        "batch8": {
+            "FunctionName": "glm3_assemble_surrogate_dataset",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "start": "801",
+                "end": "900",
+                "output_folder": "surrogate_dataset",
+                "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
+            }
+        },
+        "batch9": {
+            "FunctionName": "glm3_assemble_surrogate_dataset",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "start": "901",
+                "end": "1000",
                 "output_folder": "surrogate_dataset",
                 "calibration_repo": " https://github.com/kcratie/glm3_calibration.git"
             }
         }
     },
     "ActionContainers": {
-        "start": "docker.io/kcratie/github-actions-faasr"
+        "start": "docker.io/kcratie/github-actions-faasr",
+        "batch1": "docker.io/kcratie/github-actions-faasr",
+        "batch2": "docker.io/kcratie/github-actions-faasr",
+        "batch3": "docker.io/kcratie/github-actions-faasr",
+        "batch4": "docker.io/kcratie/github-actions-faasr",
+        "batch5": "docker.io/kcratie/github-actions-faasr",
+        "batch6": "docker.io/kcratie/github-actions-faasr",
+        "batch7": "docker.io/kcratie/github-actions-faasr",
+        "batch8": "docker.io/kcratie/github-actions-faasr",
+        "batch9": "docker.io/kcratie/github-actions-faasr"
     },
     "FunctionGitRepo": {
-        "glm3_assemble_surrogate_dataset": "kcratie/FaaSr-examples/glm3_assemble_surrogate_dataset/glm3_assemble_surrogate_dataset.R"
+        "glm3_assemble_surrogate_dataset": "faasr/FaaSr-examples/glm3_assemble_surrogate_dataset/glm3_assemble_surrogate_dataset.R"
     },
     "FunctionInvoke": "start",
     "InvocationID": "",
