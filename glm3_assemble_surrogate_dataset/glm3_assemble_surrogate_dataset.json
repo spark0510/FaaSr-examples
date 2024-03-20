@@ -123,17 +123,17 @@
         }
     },
     "ActionContainers": {
-        "start": "docker.io/kcratie/github-actions-faasr",
-        "batch1": "docker.io/kcratie/github-actions-faasr",
-        "batch2": "docker.io/kcratie/github-actions-faasr",
-        "batch3": "docker.io/kcratie/github-actions-faasr",
-        "batch4": "docker.io/kcratie/github-actions-faasr",
-        "batch5": "docker.io/kcratie/github-actions-faasr",
-        "batch6": "docker.io/kcratie/github-actions-faasr",
-        "batch7": "docker.io/kcratie/github-actions-faasr",
-        "batch8": "docker.io/kcratie/github-actions-faasr",
-        "batch9": "docker.io/kcratie/github-actions-faasr",
-        "batch10": "docker.io/kcratie/github-actions-faasr"
+        "start": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch1": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch2": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch3": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch4": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch5": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch6": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch7": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch8": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch9": "ghcr.io/faasr/github-actions-flare:1.1.2",
+        "batch10": "ghcr.io/faasr/github-actions-flare:1.1.2"
     },
     "FunctionGitRepo": {
         "nullstart": "faasr/FaaSr-examples/nullstart/nullstart.R",
