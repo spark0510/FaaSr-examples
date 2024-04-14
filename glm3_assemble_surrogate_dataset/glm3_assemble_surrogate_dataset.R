@@ -14,7 +14,9 @@ glm3_assemble_surrogate_dataset <- function(start, end, output_folder, calibrati
     library(lubridate)
     library(glmtools)
     library(GLM3r)
-
+    
+    a <- Sys.time()
+    
     system(paste0("git clone ", calibration_repo))
     # set working directory; you can change this to be any calibration folder ----
     setwd("./glm3_calibration") 
@@ -125,4 +127,14 @@ glm3_assemble_surrogate_dataset <- function(start, end, output_folder, calibrati
         write.csv(temp, file = model_run_file,row.names = FALSE)
         faasr_put_file(local_file=model_run_file, remote_folder=output_folder, remote_file=filename)
     }
+    
+    b <- Sys.time()
+    readr::write_rds(a, "exec_start.RDS")
+    readr::write_rds(b, "exec_end.RDS")
+    FaaSr::faasr_put_file(remote_folder=paste0(.faasr$FaaSrLog, "/", .faasr$InvocationID, "/", .faasr$FunctionInvoke), 
+                          remote_file="exec_start.RDS", 
+                          local_file="exec_start.RDS")
+    FaaSr::faasr_put_file(remote_folder=paste0(.faasr$FaaSrLog, "/", .faasr$InvocationID, "/", .faasr$FunctionInvoke), 
+                          remote_file="exec_end.RDS", 
+                          local_file="exec_end.RDS")
 }
